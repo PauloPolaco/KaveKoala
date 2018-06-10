@@ -12,19 +12,19 @@ public class EndLevelController : MonoBehaviour
 
     private static bool s_assetLoaded;
     private static Dictionary<EndLevelCode, Sprite> s_textImages = new Dictionary<EndLevelCode, Sprite>();
-    private static Dictionary<EndLevelCode, string> s_fileNames = new Dictionary<EndLevelCode, string>()
+    private static readonly Dictionary<EndLevelCode, string> s_resImages = new Dictionary<EndLevelCode, string>()
     {
-        { EndLevelCode.GameOver, "Assets/Sprites/MobileUI/TextGameOver.png" },
-        { EndLevelCode.LoadLevel2, "Assets/Sprites/MobileUI/TextCongrats.png" },
-        { EndLevelCode.LoadLevel3, "Assets/Sprites/MobileUI/TextCongrats.png" },
-        { EndLevelCode.GameWon, "Assets/Sprites/MobileUI/TextWinner.png" }
-    };
+        { EndLevelCode.GameOver, "TextGameOver" },
+        { EndLevelCode.LoadLevel2, "TextCongrats" },
+        { EndLevelCode.LoadLevel3, "TextCongrats" },
+        { EndLevelCode.GameWon, "TextWinner" }
+    };  // Resources/TextGameOver.png
 
     private static void LoadAssets()
     {
         if (EndLevelController.s_assetLoaded == false)
         {
-            foreach (KeyValuePair<EndLevelCode, string> fileName in s_fileNames)
+            foreach (KeyValuePair<EndLevelCode, string> fileName in s_resImages)
             {
                 byte[] fileData;
                 Texture2D texture = new Texture2D(720, 100);
@@ -83,6 +83,7 @@ public class EndLevelController : MonoBehaviour
             Destroy(otherObject.gameObject);
 
             //this.GameOverText.sprite = s_textImages[GameOverCode];
+            this.GameOverText.sprite = Resources.Load<Sprite>(s_resImages[GameOverCode]);
             this.GameOverText.enabled = true;
 
             /* Start the function after a

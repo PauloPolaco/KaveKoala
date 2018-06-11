@@ -44,7 +44,7 @@ public class EndLevelController : MonoBehaviour
     }
 
     #endregion Load Image Assets
-
+    
     public enum EndLevelCode
     {
         GameOver,
@@ -109,11 +109,21 @@ public class EndLevelController : MonoBehaviour
                 sceneController.LoadMenu(LoadSceneMode.Single);
                 break;
             case EndLevelCode.LoadLevel2:
+                EnableLevel(MenuController.PrefsLevel2Name, 1);
+                SceneController.IsLevel2Enabled = true;
                 sceneController.LoadLevel(SceneController.GameScene.GameLevel1);
                 break;
             case EndLevelCode.LoadLevel3:
+                EnableLevel(MenuController.PrefsLevel3Name, 1);
+                SceneController.IsLevel3Enabled = true;
                 sceneController.LoadLevel(SceneController.GameScene.GameLevel3);
                 break;
         }
+    }
+
+    private void EnableLevel(string levelName, int isEnabled)
+    {
+        PlayerPrefs.SetInt(levelName, isEnabled);
+        PlayerPrefs.Save();
     }
 }

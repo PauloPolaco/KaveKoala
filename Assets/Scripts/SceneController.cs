@@ -24,6 +24,10 @@ public class SceneController : MonoBehaviour
     /// </summary>
     public static bool IsGameLoaded { get; set; }
 
+    public static bool IsLevel2Enabled { get; set; }
+
+    public static bool IsLevel3Enabled { get; set; }
+
     /// <summary>
     /// Use this for initialization.
     /// </summary>
@@ -37,7 +41,7 @@ public class SceneController : MonoBehaviour
     void Update()
     {
     }
-
+    
     public void LoadLevel(string levelName)
     {
         switch (levelName)

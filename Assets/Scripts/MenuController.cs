@@ -14,11 +14,17 @@ public class MenuController : MonoBehaviour
     private readonly Color32 m_buttonResumeTextColourEnabled = new Color32(238, 87, 0, 255);
     private readonly Color32 m_buttonTextColourDisabled = new Color32(64, 64, 64, 255);
 
+    public static bool IsPrefsLoaded { get; set; }
+
+    public const string PrefsLevel2Name = @"IsLevel2Enabled";
+    public const string PrefsLevel3Name = @"IsLevel3Enabled";
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start ()
     {
+        LoadPrefs();
         SetButtonVisibility();
     }
 
@@ -28,6 +34,30 @@ public class MenuController : MonoBehaviour
     void Update ()
     {		
 	}
+
+    private static void LoadPrefs()
+    {
+        if (MenuController.IsPrefsLoaded == false)
+        {
+            int isLevel2Enabled = 0;
+            int isLevel3Enabled = 0;
+
+            isLevel2Enabled = PlayerPrefs.GetInt(PrefsLevel2Name);
+            isLevel3Enabled = PlayerPrefs.GetInt(PrefsLevel3Name);
+
+            if (isLevel2Enabled == 1)
+            {
+                SceneController.IsLevel2Enabled = true;
+            }
+
+            if (isLevel3Enabled == 1)
+            {
+                SceneController.IsLevel3Enabled = true;
+            }
+
+            MenuController.IsPrefsLoaded = true;
+        }
+    }
 
     /// <summary>
     /// Enables or disables buttons depending 
@@ -45,8 +75,10 @@ public class MenuController : MonoBehaviour
                     SetResumeButtonVisibility(button);
                     break;
                 case m_buttonLevel2:
+                    SetLevelButtonVisibility(button, SceneController.IsLevel2Enabled);
+                    break;
                 case m_buttonLevel3:
-                    SetLevelButtonVisibility(button);
+                    SetLevelButtonVisibility(button, SceneController.IsLevel3Enabled);
                     break;
             }
         }
@@ -69,11 +101,11 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void SetLevelButtonVisibility(Button button)
+    private void SetLevelButtonVisibility(Button button, bool isEnabled)
     {
         Text[] label = button.GetComponentsInChildren<Text>();
 
-        if (false)
+        if (isEnabled)
         {
             button.interactable = true;
             label[0].color = m_buttonLevelTextColourEnabled;

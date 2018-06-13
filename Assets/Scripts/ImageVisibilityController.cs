@@ -3,42 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageVisibilityController : MonoBehaviour
+namespace KaveKoala
 {
-    private Image m_imageSprite;
-
-    public Image ImageSprite
+    public class ImageVisibilityController : MonoBehaviour
     {
-        get { return m_imageSprite; }
-        set
+        private Image m_imageSprite;
+
+        public Image ImageSprite
         {
-            m_imageSprite = value;
-            SetVisibility(this.IsVisible);
+            get { return m_imageSprite; }
+            set
+            {
+                m_imageSprite = value;
+                SetVisibility(this.IsVisible);
+            }
         }
-    }
 
-    public bool IsVisible;
+        public bool IsVisible;
 
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
-    void Start ()
-    {
-        this.ImageSprite = gameObject.GetComponent<Image>();
-	}
-
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update ()
-    {		
-	}
-
-    public void SetVisibility(bool isVisible)
-    {
-        if (m_imageSprite != null)
+        /// <summary>
+        /// Use this for initialization
+        /// </summary>
+        void Start()
         {
-            m_imageSprite.enabled = this.IsVisible;
+            this.ImageSprite = gameObject.GetComponent<Image>();
+        }
+
+        /// <summary>
+        /// Update is called once per frame
+        /// </summary>
+        void Update()
+        {
+        }
+
+        public void SetVisibility(bool isVisible)
+        {
+            if (m_imageSprite != null)
+            {
+                m_imageSprite.enabled = this.IsVisible;
+            }
         }
     }
 }

@@ -6,13 +6,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EndLevelController : MonoBehaviour
+namespace KaveKoala
 {
-    #region Load Image Assets
+    public class EndLevelController : MonoBehaviour
+    {
+        #region Load Image Assets
 
-    private static bool s_assetLoaded;
-    private static Dictionary<EndLevelCode, Sprite> s_textImages = new Dictionary<EndLevelCode, Sprite>();
-    private static readonly Dictionary<EndLevelCode, string> s_resImages = new Dictionary<EndLevelCode, string>()
+        private static bool s_assetLoaded;
+        private static Dictionary<EndLevelCode, Sprite> s_textImages = new Dictionary<EndLevelCode, Sprite>();
+        private static readonly Dictionary<EndLevelCode, string> s_resImages = new Dictionary<EndLevelCode, string>()
     {
         { EndLevelCode.GameOver, "TextGameOver" },
         { EndLevelCode.LoadLevel2, "TextCongrats" },
@@ -20,110 +22,111 @@ public class EndLevelController : MonoBehaviour
         { EndLevelCode.GameWon, "TextWinner" }
     };  // Resources/TextGameOver.png
 
-    private static void LoadAssets()
-    {
-        if (EndLevelController.s_assetLoaded == false)
+        private static void LoadAssets()
         {
-            foreach (KeyValuePair<EndLevelCode, string> fileName in s_resImages)
+            if (EndLevelController.s_assetLoaded == false)
             {
-                byte[] fileData;
-                Texture2D texture = new Texture2D(720, 100);
-
-                if (File.Exists(fileName.Value))
+                foreach (KeyValuePair<EndLevelCode, string> fileName in s_resImages)
                 {
-                    fileData = File.ReadAllBytes(fileName.Value);
-                    texture.LoadImage(fileData);
+                    byte[] fileData;
+                    Texture2D texture = new Texture2D(720, 100);
 
-                    s_textImages.Add(fileName.Key, Sprite.Create(
-                        texture, new Rect(0, 0, texture.width, texture.height), new Vector2()));
+                    if (File.Exists(fileName.Value))
+                    {
+                        fileData = File.ReadAllBytes(fileName.Value);
+                        texture.LoadImage(fileData);
+
+                        s_textImages.Add(fileName.Key, Sprite.Create(
+                            texture, new Rect(0, 0, texture.width, texture.height), new Vector2()));
+                    }
                 }
+
+                s_assetLoaded = true;
             }
-
-            s_assetLoaded = true;
         }
-    }
 
-    #endregion Load Image Assets
-    
-    public enum EndLevelCode
-    {
-        GameOver,
-        LoadLevel2,
-        LoadLevel3,
-        GameWon
-    }
+        #endregion Load Image Assets
 
-    public EndLevelCode GameOverCode;
-    public Image GameOverText;
-
-    private Rigidbody2D m_rigidbody;
-
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
-    void Start ()
-    {
-        LoadAssets();
-
-        m_rigidbody = GetComponent<Rigidbody2D>();
-        this.GameOverText.enabled = false;
-    }
-
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update ()
-    {
-	}
-
-    private void OnCollisionEnter2D(Collision2D otherObject)
-    {
-        if (otherObject.gameObject.name.Equals("Player", StringComparison.OrdinalIgnoreCase))
+        public enum EndLevelCode
         {
-            Destroy(otherObject.gameObject);
-
-            //this.GameOverText.sprite = s_textImages[GameOverCode];
-            this.GameOverText.sprite = Resources.Load<Sprite>(s_resImages[GameOverCode]);
-            this.GameOverText.enabled = true;
-
-            /* Start the function after a
-             * given amount of seconds.*/
-            Invoke("PerformEndLevelAction", 2);
+            GameOver,
+            LoadLevel2,
+            LoadLevel3,
+            GameWon
         }
-        else
+
+        public EndLevelCode GameOverCode;
+        public Image GameOverText;
+
+        private Rigidbody2D m_rigidbody;
+
+        /// <summary>
+        /// Use this for initialization
+        /// </summary>
+        void Start()
         {
-            Destroy(otherObject.gameObject);
+            LoadAssets();
+
+            m_rigidbody = GetComponent<Rigidbody2D>();
+            this.GameOverText.enabled = false;
         }
-    }
 
-    private void PerformEndLevelAction()
-    {
-        SceneController sceneController = new SceneController();
-
-        switch (GameOverCode)
+        /// <summary>
+        /// Update is called once per frame
+        /// </summary>
+        void Update()
         {
-            case EndLevelCode.GameOver:
-            case EndLevelCode.GameWon:
-            default:
-                SceneController.IsGameLoaded = false;
-                sceneController.LoadMenu(LoadSceneMode.Single);
-                break;
-            case EndLevelCode.LoadLevel2:
-                EnableLevel(MenuController.PrefsLevel2Name, 1);
-                SceneController.IsLevel2Enabled = true;
-                sceneController.LoadLevel(SceneController.GameScene.GameLevel1);
-                break;
-            case EndLevelCode.LoadLevel3:
-                EnableLevel(MenuController.PrefsLevel3Name, 1);
-                SceneController.IsLevel3Enabled = true;
-                sceneController.LoadLevel(SceneController.GameScene.GameLevel3);
-                break;
         }
-    }
 
-    private void EnableLevel(string levelName, int isEnabled)
-    {
-        PlayerPrefs.SetInt(levelName, isEnabled);
-        PlayerPrefs.Save();
+        private void OnCollisionEnter2D(Collision2D otherObject)
+        {
+            if (otherObject.gameObject.name.Equals("Player", StringComparison.OrdinalIgnoreCase))
+            {
+                Destroy(otherObject.gameObject);
+
+                //this.GameOverText.sprite = s_textImages[GameOverCode];
+                this.GameOverText.sprite = Resources.Load<Sprite>(s_resImages[GameOverCode]);
+                this.GameOverText.enabled = true;
+
+                /* Start the function after a
+                 * given amount of seconds.*/
+                Invoke("PerformEndLevelAction", 2);
+            }
+            else
+            {
+                Destroy(otherObject.gameObject);
+            }
+        }
+
+        private void PerformEndLevelAction()
+        {
+            SceneController sceneController = new SceneController();
+
+            switch (GameOverCode)
+            {
+                case EndLevelCode.GameOver:
+                case EndLevelCode.GameWon:
+                default:
+                    SceneController.IsGameLoaded = false;
+                    sceneController.LoadMenu(LoadSceneMode.Single);
+                    break;
+                case EndLevelCode.LoadLevel2:
+                    EnableLevel(MenuController.PrefsLevel2Name, 1);
+                    SceneController.IsLevel2Enabled = true;
+                    sceneController.LoadLevel(SceneController.GameScene.GameLevel1);
+                    break;
+                case EndLevelCode.LoadLevel3:
+                    EnableLevel(MenuController.PrefsLevel3Name, 1);
+                    SceneController.IsLevel3Enabled = true;
+                    sceneController.LoadLevel(SceneController.GameScene.GameLevel3);
+                    break;
+            }
+        }
+
+        private void EnableLevel(string levelName, int isEnabled)
+        {
+            PlayerPrefs.SetInt(levelName, isEnabled);
+            PlayerPrefs.Save();
+        }
     }
 }

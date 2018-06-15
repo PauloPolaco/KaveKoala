@@ -7,7 +7,6 @@ namespace KaveKoala.Characters
 {
     public class PlayerManager : CharacterManager
     {
-        public float SpeedX;
         public float JumpSpeedY;
 
         private bool m_isJumping;

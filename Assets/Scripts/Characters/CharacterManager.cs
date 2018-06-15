@@ -7,12 +7,15 @@ namespace KaveKoala.Characters
 {
     public abstract class CharacterManager : MonoBehaviour
     {
+        public float SpeedX;
+
         protected Animator m_animator;
         protected Rigidbody2D m_rigidbody;
 
         protected bool m_isFacingRight;
         protected float m_speed;
 
+        public Color32 ProjectileColour;
         public GameObject ProjectileLeft;
         public GameObject ProjectileRight;
 
@@ -24,6 +27,8 @@ namespace KaveKoala.Characters
         /// </summary>
         protected virtual void Start()
         {
+            SetProjectileColour();
+
             m_animator = GetComponent<Animator>();
             m_rigidbody = GetComponent<Rigidbody2D>();
 
@@ -39,6 +44,14 @@ namespace KaveKoala.Characters
             SetPlayerOrientation();
 
             MovePlayer();
+        }
+
+        private void SetProjectileColour()
+        {
+            ProjectileController pcLeft = ProjectileLeft.GetComponent<ProjectileController>();
+            ProjectileController pcRight = ProjectileRight.GetComponent<ProjectileController>();
+            pcLeft.Colour = this.ProjectileColour;
+            pcRight.Colour = this.ProjectileColour;
         }
 
         protected virtual void SetPlayerState(float playerSpeed)

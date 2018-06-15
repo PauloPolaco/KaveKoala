@@ -41,7 +41,7 @@ namespace KaveKoala.Characters
             }
         }
 
-        protected void SetPlayerState(float playerSpeed)
+        protected override void SetPlayerState(float playerSpeed)
         {
             if (m_isJumping == false)
             {

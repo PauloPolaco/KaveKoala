@@ -11997,6 +11997,7 @@ GameObject:
   - component: {fileID: 436013130}
   - component: {fileID: 436013129}
   - component: {fileID: 436013127}
+  - component: {fileID: 436013128}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -12023,6 +12024,18 @@ MonoBehaviour:
     type: 2}
   ProjectileRight: {fileID: 1339062662038116, guid: c5f6f4a0a28b6a7438fbc6cc699d289a,
     type: 2}
+--- !u!114 &436013128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 436013126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182081833d653104aaf2c369ed4f77d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_otherObject: {fileID: 1890644799}
 --- !u!50 &436013129
 Rigidbody2D:
   serializedVersion: 4

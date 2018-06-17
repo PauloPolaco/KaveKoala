@@ -12015,7 +12015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a58d6495829644186aa67fa82852c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedX: 6
+  SpeedX: 1
   ProjectileColour:
     serializedVersion: 2
     rgba: 4280505333

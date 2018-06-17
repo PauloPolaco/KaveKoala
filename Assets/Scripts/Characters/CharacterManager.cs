@@ -9,7 +9,7 @@ namespace KaveKoala.Characters
     {
         public float SpeedX;
 
-        protected Animator m_animator;
+        public Animator Animator { get; private set; }
         protected Rigidbody2D m_rigidbody;
 
         protected bool m_isFacingRight;
@@ -29,7 +29,7 @@ namespace KaveKoala.Characters
         {
             SetProjectileColour();
 
-            m_animator = GetComponent<Animator>();
+            this.Animator = GetComponent<Animator>();
             m_rigidbody = GetComponent<Rigidbody2D>();
 
             m_firePosition = transform.Find("FirePosition");
@@ -41,9 +41,7 @@ namespace KaveKoala.Characters
         protected virtual void Update()
         {
             SetPlayerState(m_speed);
-            SetPlayerOrientation();
-
-            MovePlayer();
+            SetOrientation();
         }
 
         private void SetProjectileColour()
@@ -59,19 +57,23 @@ namespace KaveKoala.Characters
             m_rigidbody.velocity = new Vector3(m_speed, m_rigidbody.velocity.y, 0);
         }
 
-        protected void SetPlayerOrientation()
+        protected virtual void SetOrientation()
         {
             if (m_speed > 0 & m_isFacingRight == false ||
                 m_speed < 0 & m_isFacingRight == true)
             {
                 m_isFacingRight = !m_isFacingRight;
-
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1;
-                transform.localScale = localScale;
+                FlipCharacter();
             }
         }
 
-        protected abstract void MovePlayer();
+        public abstract void MoveCharacter();
+
+        protected virtual void FlipCharacter()
+        {
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1;
+            transform.localScale = localScale;
+        }
     }
 }

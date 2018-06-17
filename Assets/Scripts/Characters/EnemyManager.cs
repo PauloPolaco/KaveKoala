@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KaveKoala.Characters.EnemyStates;
 
 namespace KaveKoala.Characters
 {
     public class EnemyManager : CharacterManager
     {
+        private IEnemyState m_currentState;
+        private System.Random m_rand = new System.Random();
+
         /// <summary>
         /// Use this for initialization
         /// </summary>
@@ -14,7 +18,9 @@ namespace KaveKoala.Characters
         {
             base.Start();
 
+            ChangeState(new IdleState());
             m_isFacingRight = false;
+            //FlipCharacter();
         }
 
         /// <summary>
@@ -23,24 +29,72 @@ namespace KaveKoala.Characters
         protected override void Update()
         {
             base.Update();
+
+            m_currentState.Execute();
         }
 
         protected override void SetPlayerState(float playerSpeed)
         {
             if (playerSpeed != 0)
             {
-                m_animator.SetInteger("State", 1);
+                Animator.SetInteger("State", 1);
             }
             else
             {
-                m_animator.SetInteger("State", 0);
+                Animator.SetInteger("State", 0);
             }
 
             base.SetPlayerState(playerSpeed);
         }
 
-        protected override void MovePlayer()
+        public override void MoveCharacter()
         {
+            if (m_currentState is PatrolState)
+            {
+                int rotate = m_rand.Next(0, 100);
+
+                if (rotate == 1)
+                {
+                    FlipCharacter();
+                }
+
+                if (m_isFacingRight)
+                {
+                    m_speed = this.SpeedX;
+                }
+                else
+                {
+                    m_speed = -this.SpeedX;
+                }
+            }
+            else
+            {
+                m_speed = 0;
+            }
+
+            SetPlayerState(m_speed);
+        }
+
+        public Vector2 GetDirection()
+        {
+            return m_isFacingRight ? Vector2.right : Vector2.left;
+        }
+
+        public void ChangeState(IEnemyState newState)
+        {
+            if (m_currentState != null)
+            {
+                m_currentState.Exit();
+            }
+
+            m_currentState = newState;
+            m_currentState.Enter(this);
+        }
+
+        protected override void FlipCharacter()
+        {
+            m_isFacingRight = !m_isFacingRight;
+            base.FlipCharacter();
         }
     }
 }

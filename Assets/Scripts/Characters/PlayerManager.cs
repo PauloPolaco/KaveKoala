@@ -28,6 +28,7 @@ namespace KaveKoala.Characters
         protected override void Update()
         {
             base.Update();
+            MoveCharacter();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -37,7 +38,7 @@ namespace KaveKoala.Characters
                 m_isJumping = false;
                 m_isDoubleJumping = false;
 
-                m_animator.SetInteger("State", 0);
+                Animator.SetInteger("State", 0);
             }
         }
 
@@ -47,11 +48,11 @@ namespace KaveKoala.Characters
             {
                 if (playerSpeed != 0)
                 {
-                    m_animator.SetInteger("State", 1);
+                    Animator.SetInteger("State", 1);
                 }
                 else
                 {
-                    m_animator.SetInteger("State", 0);
+                    Animator.SetInteger("State", 0);
                 }
             }
 
@@ -60,7 +61,7 @@ namespace KaveKoala.Characters
 
         #region Movement
 
-        protected override void MovePlayer()
+        public override void MoveCharacter()
         {
             // Left player movement
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -118,11 +119,11 @@ namespace KaveKoala.Characters
         {
             if (m_rigidbody.velocity.y > 0)
             {
-                m_animator.SetInteger("State", 3); // jumping
+                Animator.SetInteger("State", 3); // jumping
             }
             else
             {
-                m_animator.SetInteger("State", 2); // falling
+                Animator.SetInteger("State", 2); // falling
             }
 
             if (m_isJumping && m_isDoubleJumping)

@@ -32,7 +32,7 @@ namespace KaveKoala.Characters.EnemyStates
 
         private void Idle()
         {
-            m_enemy.Animator.SetFloat("speed", 0);
+            m_enemy.CurrentSpeed = 0;
             m_idleTimer += Time.deltaTime;
 
             if (m_idleTimer >= m_idleDuration)

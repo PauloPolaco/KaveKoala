@@ -66,21 +66,21 @@ namespace KaveKoala.Characters
             // Left player movement
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                m_speed = -SpeedX;
+                m_currentSpeed = -SpeedX;
             }
             if (Input.GetKeyUp(KeyCode.LeftArrow))
             {
-                m_speed = 0;
+                m_currentSpeed = 0;
             }
 
             // Right player movement
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                m_speed = SpeedX;
+                m_currentSpeed = SpeedX;
             }
             if (Input.GetKeyUp(KeyCode.RightArrow))
             {
-                m_speed = 0;
+                m_currentSpeed = 0;
             }
 
             // Upward player movement
@@ -102,17 +102,17 @@ namespace KaveKoala.Characters
 
         public void MoveLeft()
         {
-            m_speed = -SpeedX;
+            m_currentSpeed = -SpeedX;
         }
 
         public void MoveRight()
         {
-            m_speed = SpeedX;
+            m_currentSpeed = SpeedX;
         }
 
         public void StopMoving()
         {
-            m_speed = 0;
+            m_currentSpeed = 0;
         }
 
         public void Jump()

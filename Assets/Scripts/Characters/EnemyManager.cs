@@ -60,19 +60,19 @@ namespace KaveKoala.Characters
 
                 if (m_isFacingRight)
                 {
-                    m_speed = this.SpeedX;
+                    m_currentSpeed = this.SpeedX;
                 }
                 else
                 {
-                    m_speed = -this.SpeedX;
+                    m_currentSpeed = -this.SpeedX;
                 }
             }
             else
             {
-                m_speed = 0;
+                m_currentSpeed = 0;
             }
 
-            SetPlayerState(m_speed);
+            SetPlayerState(m_currentSpeed);
         }
 
         public Vector2 GetDirection()

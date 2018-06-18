@@ -13,7 +13,13 @@ namespace KaveKoala.Characters
         protected Rigidbody2D m_rigidbody;
 
         protected bool m_isFacingRight;
-        protected float m_speed;
+        protected float m_currentSpeed;
+
+        public float CurrentSpeed
+        {
+            get { return m_currentSpeed; }
+            set { m_currentSpeed = value; }
+        }
 
         public Color32 ProjectileColour;
         public GameObject ProjectileLeft;
@@ -40,7 +46,7 @@ namespace KaveKoala.Characters
         /// </summary>
         protected virtual void Update()
         {
-            SetPlayerState(m_speed);
+            SetPlayerState(m_currentSpeed);
             SetOrientation();
         }
 
@@ -54,13 +60,13 @@ namespace KaveKoala.Characters
 
         protected virtual void SetPlayerState(float playerSpeed)
         {
-            m_rigidbody.velocity = new Vector3(m_speed, m_rigidbody.velocity.y, 0);
+            m_rigidbody.velocity = new Vector3(m_currentSpeed, m_rigidbody.velocity.y, 0);
         }
 
         protected virtual void SetOrientation()
         {
-            if (m_speed > 0 & m_isFacingRight == false ||
-                m_speed < 0 & m_isFacingRight == true)
+            if (m_currentSpeed > 0 & m_isFacingRight == false ||
+                m_currentSpeed < 0 & m_isFacingRight == true)
             {
                 m_isFacingRight = !m_isFacingRight;
                 FlipCharacter();

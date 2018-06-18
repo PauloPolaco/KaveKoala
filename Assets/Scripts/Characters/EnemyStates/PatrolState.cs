@@ -33,7 +33,7 @@ namespace KaveKoala.Characters.EnemyStates
 
         private void Patrol()
         {
-            m_enemy.Animator.SetFloat("speed", 1);
+            m_enemy.CurrentSpeed = m_enemy.SpeedX;
             m_patrolTimer += Time.deltaTime;
 
             if (m_patrolTimer >= m_patrolDuration)

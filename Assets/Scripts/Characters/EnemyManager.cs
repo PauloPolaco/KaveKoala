@@ -10,7 +10,7 @@ namespace KaveKoala.Characters
     {
         private IEnemyState m_currentState;
         private System.Random m_rand = new System.Random();
-
+        
         /// <summary>
         /// Use this for initialization
         /// </summary>
@@ -31,6 +31,11 @@ namespace KaveKoala.Characters
             base.Update();
 
             m_currentState.Execute();
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            m_currentState.OnTriggerEnter(other);
         }
 
         protected override void SetPlayerState(float playerSpeed)
@@ -91,7 +96,7 @@ namespace KaveKoala.Characters
             m_currentState.Enter(this);
         }
 
-        protected override void FlipCharacter()
+        public override void FlipCharacter()
         {
             m_isFacingRight = !m_isFacingRight;
             base.FlipCharacter();

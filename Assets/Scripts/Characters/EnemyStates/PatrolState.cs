@@ -29,6 +29,11 @@ namespace KaveKoala.Characters.EnemyStates
 
         public void OnTriggerEnter(Collider2D other)
         {
+            if (other.tag == "Edge")
+            {
+                m_enemy.FlipCharacter();
+                m_enemy.SetOrientation();
+            }
         }
 
         private void Patrol()

@@ -63,7 +63,7 @@ namespace KaveKoala.Characters
             m_rigidbody.velocity = new Vector3(m_currentSpeed, m_rigidbody.velocity.y, 0);
         }
 
-        protected virtual void SetOrientation()
+        public virtual void SetOrientation()
         {
             if (m_currentSpeed > 0 & m_isFacingRight == false ||
                 m_currentSpeed < 0 & m_isFacingRight == true)
@@ -75,7 +75,7 @@ namespace KaveKoala.Characters
 
         public abstract void MoveCharacter();
 
-        protected virtual void FlipCharacter()
+        public virtual void FlipCharacter()
         {
             Vector3 localScale = transform.localScale;
             localScale.x *= -1;

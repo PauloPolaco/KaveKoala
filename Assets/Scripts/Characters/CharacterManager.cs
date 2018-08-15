@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace KaveKoala.Characters
 {
+    public enum CharacterType
+    {
+        Enemy = 0,
+        Player = 1
+    }
+
     public abstract class CharacterManager : MonoBehaviour
     {
         public float SpeedX;
@@ -20,8 +26,7 @@ namespace KaveKoala.Characters
             get { return m_currentSpeed; }
             set { m_currentSpeed = value; }
         }
-
-        public Color32 ProjectileColour;
+        
         public GameObject ProjectileLeft;
         public GameObject ProjectileRight;
 
@@ -33,11 +38,11 @@ namespace KaveKoala.Characters
         /// </summary>
         protected virtual void Start()
         {
-            SetProjectileColour();
+            //SetProjectileColour();
 
             this.Animator = GetComponent<Animator>();
             m_rigidbody = GetComponent<Rigidbody2D>();
-
+            
             m_firePosition = transform.Find("FirePosition");
         }
 
@@ -50,14 +55,17 @@ namespace KaveKoala.Characters
             SetOrientation();
         }
 
-        private void SetProjectileColour()
+        public static T DeepCopy<T>(T other)
         {
-            ProjectileController pcLeft = ProjectileLeft.GetComponent<ProjectileController>();
-            ProjectileController pcRight = ProjectileRight.GetComponent<ProjectileController>();
-            pcLeft.Colour = this.ProjectileColour;
-            pcRight.Colour = this.ProjectileColour;
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            {
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                formatter.Serialize(ms, other);
+                ms.Position = 0;
+                return (T)formatter.Deserialize(ms);
+            }
         }
-
+        
         protected virtual void SetPlayerState(float playerSpeed)
         {
             m_rigidbody.velocity = new Vector3(m_currentSpeed, m_rigidbody.velocity.y, 0);

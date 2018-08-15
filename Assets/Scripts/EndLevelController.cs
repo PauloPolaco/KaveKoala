@@ -57,7 +57,6 @@ namespace KaveKoala
 
         public EndLevelCode GameOverCode;
         public Image GameOverText;
-
         private Rigidbody2D m_rigidbody;
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace KaveKoala
             LoadAssets();
 
             m_rigidbody = GetComponent<Rigidbody2D>();
-            this.GameOverText.enabled = false;
+            InitializeGameOverImage();
         }
 
         /// <summary>
@@ -76,6 +75,17 @@ namespace KaveKoala
         /// </summary>
         void Update()
         {
+        }
+
+        private void InitializeGameOverImage()
+        {
+            if (this.GameOverText == null)
+            {
+                GameObject gameOverObject = GameObject.FindGameObjectsWithTag("Finish")[0];
+                this.GameOverText = gameOverObject.GetComponent<Image>();
+            }
+
+            this.GameOverText.enabled = false;
         }
 
         private void OnCollisionEnter2D(Collision2D otherObject)

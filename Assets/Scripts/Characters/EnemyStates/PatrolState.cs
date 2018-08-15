@@ -21,6 +21,11 @@ namespace KaveKoala.Characters.EnemyStates
         {
             Patrol();
             m_enemy.MoveCharacter();
+
+            if (m_enemy.Target != null)
+            {
+                m_enemy.ChangeState(new RangedState());
+            }
         }
 
         public void Exit()

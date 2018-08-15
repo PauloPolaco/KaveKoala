@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50027932805400272}
   - component: {fileID: 114200728840344470}
   m_Layer: 0
-  m_Name: ProjectileLeft
+  m_Name: ProjectileLeftPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044792f30c20b1e49acee5f46ef22282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterType: 1
   Speed: {x: -7, y: 0}
   ProjectileDestroyDelay: 5
 --- !u!212 &212345990041256530

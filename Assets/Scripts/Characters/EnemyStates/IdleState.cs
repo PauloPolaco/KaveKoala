@@ -20,6 +20,11 @@ namespace KaveKoala.Characters.EnemyStates
         public void Execute()
         {
             Idle();
+
+            if (m_enemy.Target != null)
+            {
+                m_enemy.ChangeState(new PatrolState());
+            }
         }
 
         public void Exit()

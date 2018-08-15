@@ -6,26 +6,24 @@ namespace KaveKoala.Characters
 {
     public class ProjectileController : MonoBehaviour
     {
+        private const string c_tagGround = @"Ground";
+        private const string c_tagEnemy = @"Enemy";
+        private const string c_tagPlayer = @"Player";
+
         private SpriteRenderer m_spriteRenderer;
 
-        public Color32 Colour
+        public CharacterType CharacterType;
+        
+        private string GetCharacterTag()
         {
-            get
+            if (this.CharacterType == CharacterType.Enemy)
             {
-                if (IsSpriteRendererFound())
-                {
-                    return m_spriteRenderer.color;
-                }
+                // Sets collision object tag to Enemy.
+                return c_tagPlayer;
+            }
 
-                return new Color32();
-            }
-            set
-            {
-                if (IsSpriteRendererFound())
-                {
-                    m_spriteRenderer.color = value;
-                }
-            }
+            // Sets collision object tag to Enemy.
+            return c_tagEnemy;
         }
 
         public Vector2 Speed;
@@ -55,11 +53,31 @@ namespace KaveKoala.Characters
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Ground") ||
-                collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag(c_tagGround))
             {
                 Destroy(collision.gameObject, m_collisionObjectDestroyDelay);
                 Destroy(gameObject);
+            }
+            else if (collision.gameObject.CompareTag(GetCharacterTag()))
+            {
+                int additionalDelay = 0;
+
+                Destroy(collision.gameObject, m_collisionObjectDestroyDelay);
+
+                if (this.CharacterType == CharacterType.Enemy)
+                {
+                    /* Player object must still exist when
+                     * End Level Action is invoked, so we
+                     * need to delay the Player objects
+                     * destruction after until post invoke.*/
+                    gameObject.transform.position = new Vector3(
+                        gameObject.transform.position.x,
+                        gameObject.transform.position.y,
+                        -1000);
+                    additionalDelay += 2;
+                }
+
+                Destroy(gameObject, m_collisionObjectDestroyDelay + additionalDelay);
             }
         }
 

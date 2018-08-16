@@ -27,47 +27,19 @@ namespace KaveKoala.Characters
 
         private void OnTriggerEnter2D(Collider2D otherObject)
         {
-            if (otherObject.tag == "Player")
+            if (otherObject.tag == Tags.Player)
             {
                 this.Enemy.Target = otherObject.gameObject;
                 this.Enemy.HasCollidedWithEdge = true;
-            }
-            else
-            {
-                //if (otherObject.tag == "Edge")
-                //{
-                //    this.Enemy.HasCollidedWithEdge = true;
-                //}
-                //    this.Enemy.Target = null;
-                //    this.Enemy.ChangeState(new EnemyStates.IdleState());
-                //    //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), otherObject, false);
-                //}
-                //else
-                //{
-                //    //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), otherObject);
-                //}
-
-                //if (!(otherObject.tag == "Enemy" ||
-                //    otherObject.tag == "Edge"))
-                //{
-                //    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), otherObject);
-                //}
-                //else
-                //{
-                //    Debug.Log("Current State: " + this.Enemy.GetCurrentState().ToString());
-                //}
             }
         }
 
         private void OnTriggerExit2D(Collider2D otherObject)
         {
-            if (otherObject.tag == "Player")
+            if (otherObject.tag == Tags.Player)
             {
                 this.Enemy.LookAtTarget();
                 this.Enemy.Target = null;
-                
-                //if(this.Enemy)
-                //this.Enemy.ForceTurn = true;
             }
         }
     }

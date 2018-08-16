@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using KaveKoala.Characters;
 
 namespace KaveKoala
 {
@@ -90,7 +91,7 @@ namespace KaveKoala
 
         private void OnCollisionEnter2D(Collision2D otherObject)
         {
-            if (otherObject.gameObject.name.Equals("Player", StringComparison.OrdinalIgnoreCase))
+            if (otherObject.gameObject.name.Equals(Tags.Player, StringComparison.OrdinalIgnoreCase))
             {
                 Destroy(otherObject.gameObject);
 
@@ -104,7 +105,11 @@ namespace KaveKoala
             }
             else
             {
-                Destroy(otherObject.gameObject);
+                if (!(otherObject.gameObject.tag.Equals(Tags.Enemy, StringComparison.OrdinalIgnoreCase) &&
+                    this.gameObject.tag.Equals(Tags.Projectile, StringComparison.OrdinalIgnoreCase)))
+                {
+                    Destroy(otherObject.gameObject);
+                }
             }
         }
 

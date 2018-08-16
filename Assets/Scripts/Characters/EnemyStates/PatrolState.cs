@@ -34,7 +34,7 @@ namespace KaveKoala.Characters.EnemyStates
 
         public void OnTriggerEnter(Collider2D other)
         {
-            if (other.tag == "Edge")
+            if (other.tag == Tags.Edge)
             {
                 m_enemy.FlipCharacter();
                 m_enemy.SetOrientation();

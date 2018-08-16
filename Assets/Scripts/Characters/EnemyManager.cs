@@ -38,7 +38,7 @@ namespace KaveKoala.Characters
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Edge")
+            if (other.tag == Tags.Edge)
             {
                 this.HasCollidedWithEdge = true;
             }

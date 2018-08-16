@@ -6,10 +6,6 @@ namespace KaveKoala.Characters
 {
     public class ProjectileController : MonoBehaviour
     {
-        private const string c_tagGround = @"Ground";
-        private const string c_tagEnemy = @"Enemy";
-        private const string c_tagPlayer = @"Player";
-
         private SpriteRenderer m_spriteRenderer;
 
         public CharacterType CharacterType;
@@ -19,11 +15,11 @@ namespace KaveKoala.Characters
             if (this.CharacterType == CharacterType.Enemy)
             {
                 // Sets collision object tag to Enemy.
-                return c_tagPlayer;
+                return Tags.Player;
             }
 
             // Sets collision object tag to Enemy.
-            return c_tagEnemy;
+            return Tags.Enemy;
         }
 
         public Vector2 Speed;
@@ -53,7 +49,7 @@ namespace KaveKoala.Characters
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag(c_tagGround))
+            if (collision.gameObject.CompareTag(Tags.Ground))
             {
                 Destroy(collision.gameObject, m_collisionObjectDestroyDelay);
                 Destroy(gameObject);

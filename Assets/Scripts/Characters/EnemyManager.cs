@@ -131,7 +131,7 @@ namespace KaveKoala.Characters
         {
             TimeSpan ts = DateTime.Now.Subtract(m_lastFireTime);
 
-            if (ts.TotalMilliseconds > 300)
+            if (ts.TotalMilliseconds > Constants.EnemyFireDelay)
             {
                 m_lastFireTime = DateTime.Now;
 

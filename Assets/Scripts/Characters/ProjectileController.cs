@@ -25,7 +25,6 @@ namespace KaveKoala.Characters
         public Vector2 Speed;
         public float ProjectileDestroyDelay;
 
-        private float m_collisionObjectDestroyDelay = 0.15f;
         private Rigidbody2D m_rigidBody;
 
         /// <summary>
@@ -51,14 +50,14 @@ namespace KaveKoala.Characters
         {
             if (collision.gameObject.CompareTag(Tags.Ground))
             {
-                Destroy(collision.gameObject, m_collisionObjectDestroyDelay);
+                Destroy(collision.gameObject, Constants.CollisionObjectDestroyDelay);
                 Destroy(gameObject);
             }
             else if (collision.gameObject.CompareTag(GetCharacterTag()))
             {
                 int additionalDelay = 0;
 
-                Destroy(collision.gameObject, m_collisionObjectDestroyDelay);
+                Destroy(collision.gameObject, Constants.CollisionObjectDestroyDelay);
 
                 if (this.CharacterType == CharacterType.Enemy)
                 {
@@ -73,7 +72,7 @@ namespace KaveKoala.Characters
                     additionalDelay += 2;
                 }
 
-                Destroy(gameObject, m_collisionObjectDestroyDelay + additionalDelay);
+                Destroy(gameObject, Constants.CollisionObjectDestroyDelay + additionalDelay);
             }
         }
 

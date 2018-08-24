@@ -18,4 +18,10 @@ namespace KaveKoala.Characters
         Enemy = 0,
         Player = 1
     }
+
+    public static class Constants
+    {
+        public const int EnemyFireDelay = 1200;
+        public const float CollisionObjectDestroyDelay = 0.15f;
+    }
 }

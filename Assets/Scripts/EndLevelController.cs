@@ -128,7 +128,7 @@ namespace KaveKoala
                 case EndLevelCode.LoadLevel2:
                     EnableLevel(MenuController.PrefsLevel2Name, 1);
                     SceneController.IsLevel2Enabled = true;
-                    sceneController.LoadLevel(SceneController.GameScene.GameLevel1);
+                    sceneController.LoadLevel(SceneController.GameScene.GameLevel2);
                     break;
                 case EndLevelCode.LoadLevel3:
                     EnableLevel(MenuController.PrefsLevel3Name, 1);

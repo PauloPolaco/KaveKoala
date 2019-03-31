@@ -1,2 +1,2 @@
 # KaveKoala
-Unity platformer example.
+A koality Unity based 2D platformer example.

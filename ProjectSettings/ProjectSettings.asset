@@ -160,7 +160,7 @@ PlayerSettings:
     Standalone: com.AppGraft.KaveKoala
   buildNumber:
     Standalone: 1
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

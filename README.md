@@ -1,2 +1,2 @@
 # KaveKoala
-WildFire Unity platformer example.
+Unity platformer example.

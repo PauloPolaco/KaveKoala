@@ -34,3 +34,12 @@ sysinfo.txt
 *.unitypackage
 /KaveKoala.keystore
 /KaveKoalaPlayStore64-1.0-v2.symbols.zip
+/KaveKoalaPlayStorePrivacy64-1.0-v3.symbols.zip
+/KaveKoalaPlayStorePrivacy64-1.0-v2.symbols.zip
+/Unity.TextMeshPro.Editor.csproj
+/Unity.TextMeshPro.csproj
+/Unity.PackageManagerUI.Editor.csproj
+/Unity.CollabProxy.Editor.csproj
+/Unity.Analytics.DataPrivacy.csproj
+/KaveKoala.Player.csproj
+/KaveKoala.csproj

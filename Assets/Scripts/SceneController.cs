@@ -9,6 +9,7 @@ namespace KaveKoala
     public class SceneController : MonoBehaviour
     {
         private const string s_websiteUrl = @"http://appgraft.com";
+        private const string s_privacyUrl = @"http://appgraft.com/KoalaPrivacy.aspx";
 
         public enum GameScene
         {
@@ -111,6 +112,11 @@ namespace KaveKoala
         public void LoadWebsiteUrl()
         {
             Application.OpenURL(s_websiteUrl);
+        }
+
+        public void LoadPrivacyUrl()
+        {
+            Application.OpenURL(s_privacyUrl);
         }
     }
 }
